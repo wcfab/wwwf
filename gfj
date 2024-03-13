@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Todo List</h1>
+        <input type="text" id="taskInput" placeholder="Add new task">
+        <button onclick="addTask()">Add</button>
+        <ul id="taskList">
+            <!-- Tasks will be added dynamically here -->
+        </ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+body {
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+h1 {
+    text-align: center;
+}
+
+input[type="text"] {
+    width: 70%;
+    padding: 8px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 8px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+.taskItem {
+    margin-bottom: 5px;
+}
+
+.taskItem.completed {
+    text-decoration: line-through;
+}
+function addTask() {
+    var taskInput = document.getElementById("taskInput");
+    var taskText = taskInput.value.trim();
+    if (taskText !== "") {
+        var taskList = document.getElementById("taskList");
+        var li = document.createElement("li");
+        li.className = "taskItem";
+        li.innerHTML = taskText + ' <button onclick="markAsCompleted(this)">Complete</button> <button onclick="removeTask(this)">Remove</button>';
+        taskList.appendChild(li);
+        taskInput.value = "";
+    }
+}
+
+function markAsCompleted(button) {
+    var taskItem = button.parentElement;
+    taskItem.classList.toggle("completed");
+}
+
+function removeTask(button) {
+    var taskItem = button.parentElement;
+    taskItem.remove();
+}
